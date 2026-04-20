@@ -1,0 +1,17 @@
+<div class="shell detail-shell">
+  <div class="detail-card glass">
+    <div class="feed-head">
+      <h1>{{post.title}}</h1>
+      <a href="/">Back</a>
+    </div>
+
+    <p class="post-meta">Author: {{post.author}}</p>
+    <p class="subtext">Created: {{post.createdAt}}</p>
+
+    {{#if post.file}}
+      <img src="{{post.file}}" alt="{{post.title}}" class="detail-image" />
+    {{/if}}
+
+    <p class="detail-text">{{post.description}}</p>
+  </div>
+</div>

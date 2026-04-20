@@ -1,0 +1,53 @@
+<div class="shell auth-shell">
+  <section class="hero-card">
+    <div class="hero-copy">
+      <span class="eyebrow">Xush kelibsiz</span>
+      <h1>Bitta joyda login, parolni tiklash va post joylash imkoniyati</h1>
+      <p>Bu platformada siz akkauntga kirasiz, parolingizni tiklaysiz va o‘z postlaringizni joylashingiz mumkin.</p>
+      <div class="hero-points">
+        <span>Xavfsiz tizim</span>
+        <span>Email orqali tiklash</span>
+        <span>Fayl yuklash</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="auth-grid">
+    <div class="auth-card glass">
+      <h2>Tizimga kirish</h2>
+
+      {{#if error}}<p class="message error">{{error}}</p>{{/if}}
+      {{#if success}}<p class="message success">{{success}}</p>{{/if}}
+
+      <form action="/api/login" method="post">
+        <label for="email">Email manzil</label>
+        <input type="email" id="email" name="email" placeholder="example@gmail.com" required />
+
+        <label for="password">Parol</label>
+        <input type="password" id="password" name="password" placeholder="Parolingizni kiriting" required />
+
+        <button type="submit">Kirish</button>
+      </form>
+
+      <div class="links-row">
+        <span>Akkauntingiz yo‘qmi? <a href="/register">Ro‘yxatdan o‘tish</a></span>
+        <button type="button" class="text-btn" data-toggle-forgot>Parolni unutdingizmi?</button>
+      </div>
+    </div>
+
+    <div id="forgotBox" class="auth-card glass {{#unless showForgot}}hidden{{/unless}}">
+      <h2>Parolni tiklash</h2>
+      <p class="subtext">Email manzilingizni kiriting. Sizga parolni tiklash uchun havola yuboramiz.</p>
+
+      {{#if forgotError}}<p class="message error">{{forgotError}}</p>{{/if}}
+      {{#if forgotSuccess}}<p class="message success">{{forgotSuccess}}</p>{{/if}}
+
+      <form action="/api/forgot-password" method="post">
+        <label for="forgotEmail">Email manzil</label>
+        <input type="email" id="forgotEmail" name="email" placeholder="example@gmail.com" required />
+
+        <button type="submit">Havola yuborish</button>
+      </form>
+    </div>
+  </div>
+</div>

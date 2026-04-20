@@ -1,0 +1,83 @@
+<div class="dashboard-shell">
+  <header class="topbar glass">
+    <div>
+      <p class="eyebrow">Shaxsiy kabinet</p>
+      <h1>Xush kelibsiz, {{user.first_name}} {{user.last_name}}</h1>
+      <p class="subtext">{{user.email}}</p>
+    </div>
+
+    <form action="/api/logout" method="post" class="logout-form">
+      <button type="submit" class="secondary-btn">Chiqish</button>
+    </form>
+  </header>
+
+  <section class="stats-grid">
+    <div class="stat-card glass">
+      <span>Jami postlar</span>
+      <strong>{{posts.length}}</strong>
+    </div>
+    <div class="stat-card glass">
+      <span>Hisob holati</span>
+      <strong>Faol</strong>
+    </div>
+    <div class="stat-card glass">
+      <span>Sahifa turi</span>
+      <strong>Media blog</strong>
+    </div>
+  </section>
+
+  <main class="dashboard-grid">
+    <section class="composer glass">
+      <h2>Yangi post yaratish</h2>
+      <p class="subtext">Sarlavha, matn va fayl yuklab yangi post joylashingiz mumkin.</p>
+
+      {{#if postError}}<p class="message error">{{postError}}</p>{{/if}}
+      {{#if postSuccess}}<p class="message success">{{postSuccess}}</p>{{/if}}
+
+      <form action="/posts" method="post" enctype="multipart/form-data">
+        <label for="title">Sarlavha</label>
+        <input type="text" id="title" name="title" placeholder="Post sarlavhasini kiriting" required />
+
+        <label for="description">Ma’lumot</label>
+        <textarea id="description" name="description" placeholder="Post haqida yozing..." required></textarea>
+
+        <label for="file">Fayl yuklash</label>
+        <input type="file" id="file" name="file" />
+
+        <button type="submit">Post joylash</button>
+      </form>
+    </section>
+
+    <section class="feed glass">
+      <div class="feed-head">
+        <h2>So‘nggi postlar</h2>
+        <a href="/api/posts" target="_blank">Barcha postlarni ko‘rish</a>
+      </div>
+
+      {{#if posts.length}}
+        <div class="cards-grid">
+          {{#each posts}}
+            <article class="post-card">
+              {{#if this.file}}
+                <img src="{{this.file}}" alt="{{this.title}}" class="post-image" />
+              {{/if}}
+              <div class="post-body">
+                <p class="post-meta">{{this.author}}</p>
+                <h3>{{this.title}}</h3>
+                <p>{{this.description}}</p>
+                <div class="post-footer">
+                  <span>{{this.createdAt}}</span>
+                  <a href="/posts/{{this.id}}">Batafsil</a>
+                </div>
+              </div>
+            </article>
+          {{/each}}
+        </div>
+      {{else}}
+        <div class="empty-box">
+          <p>Hozircha postlar yo‘q. Birinchi postingizni yarating.</p>
+        </div>
+      {{/if}}
+    </section>
+  </main>
+</div>
